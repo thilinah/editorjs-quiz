@@ -1,7 +1,7 @@
 let example_data = {
   blocks: [
     {
-      type: "quizSingle",
+      type: "quiz",
       data: {
         variants: [
           {
