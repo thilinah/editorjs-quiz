@@ -54,7 +54,18 @@
         quiz: {
           class: Quiz,
           config: {
-            onSubmit: (data) => {console.log(data);},
+            onSubmit: (data) => {
+                console.log(data);
+                return new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    if (data.selectedVariants[0] === 0) {
+                      resolve({correct:true});
+                    } else {
+                      resolve({correct:false});
+                    }
+                  }, 300);
+                });
+              },
           },
         },
       },
