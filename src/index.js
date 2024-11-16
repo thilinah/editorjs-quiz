@@ -13,8 +13,9 @@ class Quiz {
   #question = "";
   #answers = new Set();
   #variants = [];
-  #type = "singleSelect";
-  #language = "uz";
+  //#type = "singleSelect";
+  #type = "multiSelect";
+  #language = "en";
   #validation = { min: 2 };
 
   constructor(args) {
@@ -33,7 +34,11 @@ class Quiz {
     if (Array.isArray(data?.answers) && !readOnly) {
       this.#answers = new Set(data.answers);
     }
-    if (typeof data?.type === "string") this.#type = data.type;
+    if (typeof data?.type === "string") {
+      this.#type = data.type;
+    } else {
+      this.#type = config.type;
+    }
     if (typeof data?.question === "string") this.#question = data.question;
     if (LANGUAGES.includes(config.language)) this.#language = config.language;
 

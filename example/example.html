@@ -51,10 +51,18 @@
       tools: {
         header: Header,
         delimiter: Delimiter,
-        quiz: {
+        quizSingle: {
           class: Quiz,
           config: {
-            onSubmit: () => {},
+            type: 'singleSelect',
+            onSubmit: (event) => {console.log(event)},
+          },
+        },
+        quizMulti: {
+          class: Quiz,
+          config: {
+            type: 'multiSelect',
+            onSubmit: (event) => {console.log(event)},
           },
         },
       },
