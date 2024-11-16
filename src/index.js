@@ -14,7 +14,7 @@ class Quiz {
   #answers = new Set();
   #variants = [];
   #type = "singleSelect";
-  #language = "uz";
+  #language = "en";
   #validation = { min: 2 };
 
   constructor(args) {
