@@ -43,7 +43,7 @@ export const TEXTS = {
       required: "Please pick the answer",
     },
     footer: {
-      submit: "Submit",
+      submit: "Check Answers",
     },
   },
 };

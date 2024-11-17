@@ -14,7 +14,7 @@ class Quiz {
   #answers = new Set();
   #variants = [];
   #type = "singleSelect";
-  #language = "uz";
+  #language = "en";
   #validation = { min: 2 };
 
   constructor(args) {
@@ -145,9 +145,23 @@ class Quiz {
     this.body.appendChild(error);
   }
 
-  _clearError() {
+  _renderSuccess(message) {
+    let error = this.body.querySelector(".cdx-quiz-success");
+    if (error) {
+      error.innerText = message;
+      return;
+    }
+    error = document.createElement("div");
+    error.className = "cdx-quiz-success";
+    error.innerText = message;
+    this.body.appendChild(error);
+  }
+
+  _clearErrorAndSuccess() {
     const error = this.body.querySelector(".cdx-quiz-error");
     error?.remove();
+    const success = this.body.querySelector(".cdx-quiz-success");
+    success?.remove();
   }
 
   _renderFooter() {
@@ -161,6 +175,7 @@ class Quiz {
 
       submitBtn.onclick = async () => {
         if (this.#answers.size === 0) {
+          this._clearErrorAndSuccess();
           this._renderError(TEXTS[this.#language].errors.required);
         } else {
           const loader = createLoader();
@@ -168,9 +183,17 @@ class Quiz {
           submitBtn.appendChild(loader);
 
           try {
-            await this.config.onSubmit({
+            this.config.onSubmit({
               id: this.block.id,
               selectedVariants: Array.from(this.#answers),
+            }).then((value) => {
+              console.log(value);
+              this._clearErrorAndSuccess();
+              if (!value.correct) {
+                this._renderError('Incorrect answer. Please try again.');
+              } else {
+                this._renderSuccess('Correct answer.');
+              }
             });
           } catch (e) {
             console.error(e);
@@ -209,7 +232,7 @@ class Quiz {
     } else {
       this.#answers.add(value);
     }
-    this._clearError();
+    this._clearErrorAndSuccess();
   };
 
   _variantTextChangeHandler = (event, index) => {

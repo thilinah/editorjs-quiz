@@ -7,7 +7,7 @@
     outline: none;
 
     &:empty::before {
-      content: "Savolingizni bu yerga yozing";
+      content: "Type your question here";
       position: absolute;
       top: 0;
       left: 0;
@@ -85,8 +85,15 @@
 }
 
 .cdx-quiz-error {
-  color: #dddd00;
-  padding: 0.5rem 0;
+  color: whitesmoke;
+  padding: 3px 7px;
+  background-color: darkred;
+}
+
+.cdx-quiz-success {
+  color: whitesmoke;
+  padding: 3px 7px;
+  background-color: darkgreen;
 }
 
 .qt-add-btn {
